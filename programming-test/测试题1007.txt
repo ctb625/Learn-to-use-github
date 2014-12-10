@@ -1,0 +1,25 @@
+(defun get-prime-list (n)
+	   (let ((res nil)(base (base-num-list n)))
+		 (do ()((null base) res)
+		   (push (car base) res)
+		   (setf base (remove (car base) base :test #'mod-x-p)))
+		 (reverse res)))
+
+(defun mod-x-p (divisor n)
+	   (if (zerop (mod n divisor))
+	       t
+	       nil))
+
+(defun base-num-list (n)
+	   (let ((res nil))
+	     (dotimes (i (- n 1))
+	       (push (+ i 2) res))
+	     (reverse res)))
+
+ (defun get-numbers1 (prime-list)
+	    (let ((res 0))
+	      (do ((lst prime-list (cdr lst))) ((null (cdr lst)) res)
+		(if (= (- (car (cdr lst))(car lst)) 2)
+		    (setf res (+ res 1))))))
+
+(get-numbers1 (get-prime-list (read)))
